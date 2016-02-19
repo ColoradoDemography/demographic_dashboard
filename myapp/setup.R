@@ -1,9 +1,7 @@
 library(dplyr)
 library(tidyr)
-library(ggplot2)
 library(plotly)
-library(grid)
-library(car)
+
 
 
 load("county_forecast.rdata")

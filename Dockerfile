@@ -23,15 +23,10 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
     gdebi -n ss-latest.deb && \
     rm -f version.txt ss-latest.deb
 
-RUN R -e "install.packages(c('shiny', 'rmarkdown', 'tm', 'wordcloud', 'memoise', 'packrat'), repos='http://cran.rstudio.com/')"
-
+RUN R -e "install.packages(c('shiny', 'rmarkdown', 'tm', 'wordcloud', 'memoise', 'dplyr', 'plotly', 'tidyr'), repos='http://cran.rstudio.com/')"
 
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
 COPY /myapp/* /srv/shiny-server/
-
-RUN R -e "packrat::unbundle('/srv/shiny-server/myapp/myapp-2016-02-19.tar.gz', '/srv/shiny-server/myapp')"
-
-RUN R -e "packrat::on('/srv/shiny-server/myapp')"
 
 EXPOSE 80
 
