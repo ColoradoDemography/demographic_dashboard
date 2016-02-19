@@ -15,9 +15,14 @@ shinyUI(fluidPage(
            wellPanel(selectInput("county",
                        "Select a county:",
                        choices = unique(county_choices$county),
-                       selected = 'Colorado') 
-                     ))
-           ),
+                       selected = 'Colorado'),
+                     p(
+                       class = "text-muted",
+                       "Note: To download a plot, hover over the top right and click the camera icon."
+                     )
+                     )
+           )
+          ),
   fluidRow(
            
            column(6, 
