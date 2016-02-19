@@ -25,16 +25,22 @@ shinyUI(fluidPage(
                   downloadButton('netMigAgeData', 'Download Data (CSV)')
            ),
            column(6, 
-                  plotlyOutput("estimates")
+                  plotlyOutput("estimates"),
+                  downloadButton('estimatesData', 'Download Data (CSV)')
+                  
            )
         ),
   fluidRow(
            
            column(6, 
-                  plotlyOutput("projections")
+                  plotlyOutput("projections"),
+                  downloadButton('projectionsData', 'Download Data (CSV)')
+              
            ),
            column(6, 
-                  plotlyOutput("components")
+                  plotlyOutput("components"),
+                  downloadButton('componentsData', 'Download Data (CSV)')
+                  
            )
   )
   ))

@@ -15,7 +15,10 @@ load("county_migbyage.rdata")
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
 
-mig_age_p=function(fips, base=12, agecat="ten"){
+#### Net Migration by Age Graph and Data #####
+
+## Generates a Plotly Chart
+mig_age_p=function(fips){
   
   data=county_migbyage%>%    
     mutate(countyfips=as.numeric(countyfips))%>%
@@ -32,6 +35,7 @@ mig_age_p=function(fips, base=12, agecat="ten"){
 
 }
 
+## Generates the data download
 mig_age_d=function(fips, name){
 
   x=county_migbyage%>%
@@ -45,12 +49,136 @@ mig_age_d=function(fips, name){
 }
 
 
+#### Population Estimates Graph and Data ####
 
 
+## Generates a Plotly Chart
+estimates_p=function(fips){
+  
+  data=county_profile%>%    
+    filter(countyfips==fips)%>%
+    select(countyfips, year, householdPopulation, groupQuartersPopulation)
+  
+  plot_ly(data, x=year, y=householdPopulation+groupQuartersPopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+    layout(
+      title=paste("Population Estimates 1980 to", as.character(max(data$year))),
+      xaxis=list(
+        title="Year"),
+      yaxis=list(
+        title="Total Population")
+    )
+  
+}
+
+## Generates the data download
+estimates_d=function(fips, name){
+  
+  x=county_profile%>%    
+    filter(countyfips==fips)%>%
+    select(countyfips, year, householdPopulation, groupQuartersPopulation)%>%
+    mutate(TotalPopulation=householdPopulation+groupQuartersPopulation)%>%
+    bind_cols(data.frame(County=rep(name, length(unique(county_profile$year)))))%>%
+    select(County, Year=year, TotalPopulation)
+    
+  
+  
+  return(x)
+}
 
 
+#### Population Projections Graph and Data ####
 
 
+## Generates a Plotly Chart
+projections_p=function(fips, est_year){
+  
+  
+  CO=county_forecast%>% # Creates data for the state as a whole since that isn't in the data frame.   
+    filter(year>est_year)%>%
+    group_by(year)%>%
+    summarize(totalPopulation=sum(totalPopulation))%>%
+    mutate(countyfips=0)%>%
+    select(countyfips, year, totalPopulation)
+  
+  data=county_forecast%>%
+    bind_rows(CO)%>%
+    filter(countyfips==fips, year>=est_year)%>%
+    group_by(countyfips, year)%>%
+    summarize(totalPopulation=sum(totalPopulation))%>%
+    select(countyfips, year, totalPopulation)
+    
+  
+  plot_ly(data, x=year, y=totalPopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+    layout(
+      title=paste("Population Projections", as.character(est_year), "to 2050"),
+      xaxis=list(
+        title="Year"),
+      yaxis=list(
+        title="Total Population")
+    )
+  
+}
+
+## Generates the data download
+projections_d=function(fips, name, est_year){
+  
+  CO=county_forecast%>% # Creates data for the state as a whole since that isn't in the data frame.   
+    filter(year>est_year)%>%
+    group_by(year)%>%
+    summarize(totalPopulation=sum(totalPopulation))%>%
+    mutate(countyfips=0)%>%
+    select(countyfips, year, totalPopulation)
+  
+  x=county_forecast%>%   
+    bind_rows(CO)%>%
+    filter(countyfips==fips, year>=est_year)%>%
+    group_by(countyfips, year)%>%
+    summarize(totalPopulation=sum(totalPopulation))%>%
+    bind_cols(data.frame(County=rep(name, length(unique(county_forecast$year)))))%>%
+    select(County, Year=year, TotalPopulation=totalPopulation)
+  
+  
+  
+  return(x)
+}
+
+
+#### Components of Change Graph and Data ####
+
+
+## Generates a Plotly Chart
+components_p=function(fips){
+  
+  data=county_profile%>%    
+    filter(countyfips==fips)%>%
+    select(countyfips, year, naturalIncrease, netMigration)
+  
+  
+  plot_ly(data, x=year, y=netMigration, type= "bar", marker=list(color = "rgb(92,102,112)"), name="Net Migration")%>%
+    add_trace( y=naturalIncrease, marker=list(color="rgb(0,149,58)"), name= "Natural Increase")%>%
+    layout(
+      barmode="overlay",
+      title=paste("Births, Deaths, and Net Migration 1985 to", as.character(max(data$year))),
+      xaxis=list(
+        title="Year"),
+      yaxis=list(
+        title="Population Change")
+    )
+  
+}
+
+## Generates the data download
+components_d=function(fips, name){
+  
+  x=county_profile%>%    
+    filter(countyfips==fips)%>%
+    bind_cols(data.frame(County=rep(name, length(unique(county_profile$year)))))%>%
+    select(County, year, naturalIncrease, netMigration)
+  
+  
+  
+  return(x)
+}
 
 
 
