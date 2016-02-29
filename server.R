@@ -3,7 +3,7 @@ library(plotly)
 
 source("setup.R")
 
-function(input, output) {
+function(input, output, session) {
 
 county=reactive({filter(read.csv("county_names.csv"), county==input$county)%>%
                   select(countyfips)%>%
