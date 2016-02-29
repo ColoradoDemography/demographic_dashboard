@@ -1,0 +1,159 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    {{ headContent() }}
+    {{ bootstrapLib() }}
+<link type="text/css" rel="stylesheet" href="css/theme.css" />
+    <link type="text/css" rel="stylesheet" href="css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <link type="text/css" rel="stylesheet" href="css/application.css" />
+    <link type="text/css" rel="stylesheet" href="css/select2.css" />
+    <link type="text/css" rel="stylesheet" href="css/meanmenu.css" />
+    <link type="text/css" rel="stylesheet" href="css/tablesaw.css" />
+    
+    <script type="text/javascript">if(window.PrimeFaces){}</script>
+    
+        <meta name="author" content="State of Colorado" />
+        <meta name="description" content="Colorado Department of Local Affairs" />
+        <meta name="MobileOptimized" content="width" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="viewport" content="width=device-width" />
+    
+            <!--[if lt IE 9]>
+            <script>
+            document.createElement('header');
+            document.createElement('nav');
+            document.createElement('section');
+            document.createElement('article');
+            document.createElement('aside');
+            document.createElement('footer');
+            document.createElement('hgroup');
+            document.createElement('@media');
+            </script>
+            <![endif]-->
+    
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="js/select2.full.js"></script>
+    <script type="text/javascript" src="js/jquery.meanmenu.js"></script>
+    <script type="text/javascript" src="js/tablesaw.js"></script>
+    
+            <script type="text/javascript">
+
+            jQuery(document).ready(function () {
+                jQuery('header nav').meanmenu();
+            });
+        </script> 
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+        <title>State Demography Office - Dashboard</title>
+  
+  </head>
+  
+  
+  <body>
+        <div id="top-bar-wrapper">
+            <div id="top-bar-left">
+
+              <a href="http://www.colorado.gov" rel="home" title="Colorado The Official Web Portal">
+                <img id="logo" src="css/img/colorado-logo.png" alt="Colorado The Official Web Portal" />
+              </a>
+
+            </div>
+            <div id="top-bar-right">
+
+                <div id="search-wrapper" role="search">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="page-wrapper">
+            <div id="page-wrapper-inner">
+                <header id="header">
+                    <div id="header-name">
+                        <h1 id="site-name">
+                            <a href="http://www.colorado.gov/pacific/dola" title="Home" rel="home">
+                                <span>DOLA</span>
+                            </a>
+                        </h1>
+                    </div>
+
+                  <img id="banner" src="css/img/dola-banner.png" alt="Colorado Department of Local Affairs" />
+
+                    <nav id="top-navigation-wrapper">
+                        <ul id="top-navigation-list">
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola" target="_blank">Home</a>
+                            </li>
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola/division-local-government" target="_blank">Local Government</a>
+                            </li>
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola/property-taxation" target="_blank">Property Taxation</a>
+                            </li>
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola/division-housing" target="_blank">Housing</a>
+                            </li>
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola/board-assessment-appeals-baa" target="_blank">Assessment Appeals</a>
+                            </li>
+                            <li class="padding-normal">
+                                <a href="http://www.colorado.gov/pacific/dola/disaster-recovery" target="_blank">Disaster Recovery</a>
+                            </li>
+                        </ul>
+                    </nav>
+                  
+                </header>
+              
+              
+                <section id="content" role="main">
+                    <div id="main-content">
+                      <h1>State Demography Office - Dashboard</h1>
+                      <span style="font-weight: bold;">INSTRUCTIONS:</span>
+                      <br>
+                      <p>The following page shows graphs and charts for various datasets by county. Select the county from the list below to view the graphs for that county. All graphs are interactive and you are able to zoom in and out on any area of each graph by drawing boxes around the area you would to view with your mouse. To zoom back out, simply double click on any area of the graph. You can also hover over specific data points on each graph to view the data for that specific point.</p>
+                      <p> For your convenience, you are able to download the graphs by clicking on the camera icon in the upper right of the graph while hovering over the chart.  This will download an exact copy, including zooming, of  the chart on the page.</p>
+                      <p>You are able to download the raw data for each chart by clicking on the "Download Data (CSV) button below the chart.</p>
+                      <hr>
+                      {{county}}
+                      <hr>
+                      <div>
+                      {{net_mig_plot}}
+                      {{net_mig_dl}}
+                      {{estimates_plot}}
+                      {{estimates_dl}}
+                      {{projections_plot}}
+                      {{projections_dl}}
+                      {{components_plot}}
+                      {{components_dl}}
+                      </div>
+                      </div>
+                </section>
+            </div>
+        </div>
+        <footer id="footer">
+            <ul>
+                <li><a href="https://www.colorado.gov/pacific/dola/node/120196" target="_blank">About DOLA</a></li>
+                <li><a href="https://www.colorado.gov/pacific/dola/node/120201" target="_blank">Careers</a></li>
+                <li><a href="https://www.colorado.gov/pacific/dola/node/106866" target="_blank">Newsroom</a></li>
+                <li><a href="https://www.colorado.gov/pacific/dola/node/107106" target="_blank">Strategic &amp; Legislative Planning</a></li>
+                <li><a href="https://www.colorado.gov/pacific/dola/node/107101" target="_blank">Contact</a></li>
+            </ul>
+            <p>
+                <a href="http://www.colorado.gov/" target="_blank">&copy; 
+                    <script type="text/javascript">
+                        var today = new Date();
+                        var year = today.getFullYear();
+                        document.write(year);
+                    </script> 
+                    State of Colorado
+                </a> | 
+                <a href="https://www.colorado.gov/apps/oit/transparency/index.html" target="_blank">Transparency Online</a> | 
+                <a href="https://www.colorado.gov/accessibility-standards" target="_blank">Accessibility</a>
+            </p>
+        </footer>
+
+</body>
+</html>
