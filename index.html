@@ -6,7 +6,6 @@
   <head>
     {{ headContent() }}
     {{ bootstrapLib() }}
-    {{ suppressDependencies(c("jQuery")) }}
 <link type="text/css" rel="stylesheet" href="css/theme.css" />
     <link type="text/css" rel="stylesheet" href="css/layout.css" />
     <link type="text/css" rel="stylesheet" href="css/common.css" />
@@ -36,7 +35,7 @@
             </script>
             <![endif]-->
     
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+       <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script> -->
     <script type="text/javascript" src="js/select2.full.js"></script>
     <script type="text/javascript" src="js/jquery.meanmenu.js"></script>
     <script type="text/javascript" src="js/tablesaw.js"></script>
@@ -122,14 +121,22 @@
                       {{county}}
                       <hr>
                       <div>
+                        <br>
                       {{net_mig_plot}}
                       {{net_mig_dl}}
+                      <br>
+                      <br>
                       {{estimates_plot}}
                       {{estimates_dl}}
+                      <br>
+                      <br>
                       {{projections_plot}}
                       {{projections_dl}}
+                      <br>
+                      <br>
                       {{components_plot}}
                       {{components_dl}}
+                      <br>
                       </div>
                       </div>
                 </section>
