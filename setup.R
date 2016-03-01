@@ -29,7 +29,8 @@ mig_age_p=function(fips){
       xaxis=list(
         title=" Age"),
       yaxis=list(
-        title=" Net Migration")
+        title=" Net Migration"),
+      margin=list(t=60)
     )
 
 }
@@ -64,7 +65,8 @@ estimates_p=function(fips){
       xaxis=list(
         title="Year"),
       yaxis=list(
-        title="Total Population")
+        title="Total Population"),
+      margin=list(t=60)
     )
   
 }
@@ -113,7 +115,8 @@ projections_p=function(fips, est_year){
       xaxis=list(
         title="Year"),
       yaxis=list(
-        title="Total Population")
+        title="Total Population"),
+      margin=list(t=60)
     )
   
 }
@@ -156,12 +159,13 @@ components_p=function(fips){
   plot_ly(data, x=year, y=netMigration, type= "bar", marker=list(color = "rgb(92,102,112)"), name="Net Migration")%>%
     add_trace( y=naturalIncrease, marker=list(color="rgb(0,149,58)"), name= "Natural Increase")%>%
     layout(
-      barmode="overlay",
+      barmode="stacked",
       title=paste("Births, Deaths, and Net Migration 1985 to", as.character(max(data$year))),
       xaxis=list(
         title="Year"),
       yaxis=list(
-        title="Population Change")
+        title="Population Change"),
+      margin=list(t=60)
     )
   
 }
@@ -182,51 +186,3 @@ components_d=function(fips, name){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-############## Graph Stuff ######################
-
-codemog_pal=c(rgb(31,73,125, max=255),
-              rgb(192,80,77, max=255),
-              rgb(101, 80, 60, max=255),
-              rgb(239, 117, 33, max=255),
-              rgb(119, 171, 67, max = 255),
-              rgb(208, 210, 211, max = 255),
-              rgb(210, 210, 210, max = 255))
-
-theme_codemog <- function(base_size = 12, base_family = "sans"){
-  codemog_pal=c(
-    dkblu=rgb(31,73,125, max=255),
-    dkred=rgb(192,80,77, max=255),
-    dkgray = rgb(78, 87, 88, max = 255),
-    medgray = rgb(210, 210, 210, max = 255),
-    ltgray = rgb(208, 210, 211, max = 255),
-    green = rgb(119, 171, 67, max = 255)
-  )
-  theme(
-    line = element_line(),
-    rect = element_blank(),
-    text = element_text(colour = codemog_pal['dkgray'], size=base_size),
-    axis.title = element_text(family=base_family, colour=codemog_pal['dkgray']),
-    axis.text = element_text(colour=codemog_pal['dkgray'], family=base_family),
-    axis.ticks = element_blank(),
-    axis.line = element_blank(),
-    legend.background = element_rect(),
-    legend.position = "bottom",
-    legend.direction = "horizontal",
-    legend.box = "vertical",
-    panel.grid = element_line(colour = NULL),
-    panel.grid.major = element_line(colour = codemog_pal['medgray'], size=base_size*.05),
-    panel.grid.minor = element_line(colour = codemog_pal['medgray'], size=base_size*.05),
-    plot.title = element_text(hjust = 0, size = rel(1.5), face = "bold"),
-    plot.margin = unit(c(.2, .2, .2, .2), "lines"),
-    strip.background=element_rect())
-}
