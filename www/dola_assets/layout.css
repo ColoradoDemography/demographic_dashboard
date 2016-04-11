@@ -1,56 +1,4 @@
-html{
-    font-size:87.5%;
-    -webkit-text-size-adjust:100%;
-    -ms-text-size-adjust:100%;
-}
 
-html,button,input,select,textarea{
-    font-family:"Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
-}
-
-body{
-    margin:0;
-    padding:0;
-    background-color: #ced4e0;
-    color:#666666;
-    line-height:24px;
-}
-
-button,input{
-    line-height:normal;
-}
-
-button,input[type="button"],input[type="reset"],input[type="submit"]{
-    cursor:pointer;
-    -webkit-appearance:button;
-    *overflow:visible;
-}
-
-button[disabled],input[disabled]{
-    cursor:default;
-}
-
-button::-moz-focus-inner,input::-moz-focus-inner{
-    border:0;
-    padding:0;
-}
-
-button{
-    border:0px;
-}
-
-nav ul,nav ol{
-    list-style:none;
-    list-style-image:none;
-}
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #cbcbcb;
-    margin: 1em 0;
-}
 
 #logo {
     margin-top:12px;
@@ -82,9 +30,10 @@ hr {
 
 #gtranslate-wrapper{
     position:relative;
-    float:left;
-    margin-left:20px;
-    margin-top:12px;
+    float:right;
+    margin-right:20px;
+    margin-top:7px;
+    margin-bottom: 7px;
     font-size:0.85714em;
 }
 
@@ -111,60 +60,28 @@ hr {
 
 #gtranslate-wrapper .translate-content{
     display:none;
-    position: fixed;
     width:180px;
     z-index:90;
     background-color:#bad0e7;
     padding:10px;
     margin-top: 2px;
+    margin-right: 20px;
 }
 
 #gtranslate-wrapper .translate-content .gtflag{
     width:16px;
     height:16px;
-    float:left;
+    float:right;
     margin:4px 3px;
     display:block;
     position:relative;
     z-index:95;
 }
 
-#search-wrapper {
-    float: right;
-    margin-left: 10px;
-    padding:12px 10px 8px;
-}
 
-#search-wrapper form{
-    position:relative;
-}
 
-#edit-submit {
-    position:absolute;
-    left:0;
-    top:0;
-    padding:0;
-    background:url(../javax.faces.resource/search-ico.jpg.jsf?ln=images) no-repeat left top!important;
-    height:26px;
-    width:31px;
-    border:0;
-    text-indent:-5000px;
-    overflow:hidden;
-
-}
-
-#edit-search-block-form--2 {
-    width:124px;
-    height:24px;
-    padding-left:31px;
-    padding-right:4px;
-    border:0;
-    background-color:#bad0e7;
-    outline:none;
-    margin:0;
-    line-height:26px;
-}
-
+@media screen and (min-width: 785px) {
+  
 #page-wrapper{
     margin: 0 auto;
     width: 100%;
@@ -179,6 +96,29 @@ hr {
     max-width: 942px;
     background-color:#efefef;
 }
+  
+      }
+      
+
+@media screen and (max-width: 784px) {
+  
+#page-wrapper{
+    width: 100%;
+    max-width: 100%;
+    padding: 0px;
+    background-color: #ffffff;
+}
+
+#page-wrapper-inner {
+    padding: 6px;
+    max-width: 100%;
+    background-color:#efefef;
+}
+  
+  p {
+    margin-right:10px;
+  }
+      }
 
 #site-name{
     text-indent:-5000px;
@@ -195,13 +135,94 @@ hr {
     margin:0;
 }
 
-@media screen and (max-width: 930px) {
-    #top-bar-right {
-        float: left;
-    }
+
+
+@media screen and (max-width: 784px) {
+  
+  #coloradolegal{
+  display: block;
+  float: left;
+  margin-left: 0px;
+  margin-bottom: 20px;
 }
 
-@media screen and (min-width: 931px) {
+  
+    #aboutleft{
+    display: block;
+    float: left;
+    margin-left: 0px;
+    margin-right: 10px;
+  }  
+  
+  #aboutright{
+    display: block;
+    float: left;
+    margin-left: 0px;
+    margin-right: 10px;
+  }
+  
+  
+}
+
+
+@media screen and (min-width: 785px) {
+  
+  #coloradolegal{
+  display: block;
+  float: left;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+  
+    #aboutleft{
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+        padding-bottom: 20px;
+  }  
+  
+  #aboutright{
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+      padding-bottom: 20px;
+  }
+  
+  
+}
+
+
+
+
+
+
+@media screen and (max-width: 784px) {
+    #top-bar-right {
+        float: right;
+    }
+ 
+}
+
+
+
+@media screen and (min-width: 785px) {
+  
+    #aboutleft{
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+        padding-bottom: 20px;
+  }  
+  
+  #aboutright{
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+      padding-bottom: 20px;
+  }
+  
+  
     #top-navigation-wrapper{
         background-color: #21201e;
         height: 48px;
@@ -240,7 +261,7 @@ hr {
 
     #top-navigation-list li.padding-normal a {
         padding-left: 12px;
-        padding-right: 16px;
+        padding-right: 12px;
     }
 
     #top-navigation-list li:last-child a {
@@ -259,22 +280,6 @@ hr {
 
 #banner {
     max-width: 100%;
-}
-
-#main-content {
-    padding: 20px;
-    font-size: 85%;
-}
-
-#main-content h1 {
-    margin: 0;
-    margin-top: .25em;
-    font-weight: normal;
-    color: #36424a;
-    font-size: 1.8em;
-    line-height: 1.25em;
-    border-bottom: solid 1px #cbcbcb;
-    padding: 4px 0 7px 0;
 }
 
 #main-content a {

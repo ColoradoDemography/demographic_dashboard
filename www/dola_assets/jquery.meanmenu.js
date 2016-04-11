@@ -36,7 +36,7 @@
 						meanRevealPosition: "right", // left right or center positions
 						meanRevealPositionDistance: "0", // Tweak the position of the menu
 						meanRevealColour: "", // override CSS colours for the reveal background
-						meanScreenWidth: "930", // set the screen width you want meanmenu to kick in at
+						meanScreenWidth: "984", // set the screen width you want meanmenu to kick in at
 						meanNavPush: "", // set a height here in px, em or % if you want to budge your layout now the navigation is missing.
 						meanShowChildren: true, // true to show children in the menu, false to hide them
 						meanExpandableChildren: true, // true to allow expand/collapse children

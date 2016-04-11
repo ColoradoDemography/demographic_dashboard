@@ -1,0 +1,110 @@
+
+@font-face {
+  font-family: 'Source_Sans_Pro';
+  src: url('/assets/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf'); 
+
+}
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/assets/fonts/Merriweather/Merriweather-Regular.ttf'); 
+
+}
+
+html,button,input,select,textarea{
+    font-family: "Source_Sans_Pro", "Georgia","Verdana","Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: "Merriweather"
+}
+
+
+body{
+    margin:0;
+    padding:0;
+    background-color: #ced4e0;
+    color:#666666;
+    line-height:24px;
+}
+
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cbcbcb;
+    margin: 1em 0;
+}
+
+select{
+  width: 200px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+border: 1px solid gray;
+}
+
+thead, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tbody tr:nth-child(even){background-color: #f2f2f2}
+tbody tr:nth-child(odd){background-color: #ccc}
+
+thead {
+    background-color: rgb(0,148,157);
+    color: white;
+}
+
+/* anchor tag hacks */
+
+h1:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -50px; 
+  height: 50px; 
+  visibility: hidden; 
+}
+
+
+h2:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -50px; 
+  height: 50px; 
+  visibility: hidden; 
+}
+
+
+h3:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -50px; 
+  height: 50px; 
+  visibility: hidden; 
+}
+
+
+h4:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -50px; 
+  height: 50px; 
+  visibility: hidden; 
+}
+
+
+h5:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -50px; 
+  height: 50px; 
+  visibility: hidden; 
+}
+
+button {
+    border: 0px;
+}
