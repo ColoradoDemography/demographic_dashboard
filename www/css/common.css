@@ -1,12 +1,12 @@
 
 @font-face {
   font-family: 'Source_Sans_Pro';
-  src: url('/assets/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf'); 
+  src: url('/css/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf'); 
 
 }
 @font-face {
   font-family: 'Merriweather';
-  src: url('/assets/fonts/Merriweather/Merriweather-Regular.ttf'); 
+  src: url('/css/fonts/Merriweather/Merriweather-Regular.ttf'); 
 
 }
 
