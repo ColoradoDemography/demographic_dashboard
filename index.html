@@ -1,9 +1,7 @@
-<!DOCTYPE html>
+
 <!-- template.html -->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    {{ headContent() }}
-    {{ bootstrapLib() }}
+
+    <title>State Demography Office - Dashboard</title>
  <link type="text/css" rel="stylesheet" href="common.css" />
     <link type="text/css" rel="stylesheet" href="layout.css" />
     <link type="text/css" rel="stylesheet" href="meanmenu.css" />
@@ -27,7 +25,7 @@
             <![endif]-->
     
       <script type="text/javascript" src="jquery.meanmenu.js"></script>
-    <script type="text/javascript" src="gtranslate.js"></script>    >
+    <script type="text/javascript" src="gtranslate.js"></script>    
     
             <script type="text/javascript">
 
@@ -36,16 +34,17 @@
             });
         </script> 
 
-        <title>State Demography Office - Dashboard</title>
+        
+   {{ headContent() }}
+    {{ bootstrapLib() }}
+
   
-  </head>
   
-  
-  <body>
+
         <div id="top-bar-wrapper">
           <div id="top-bar-left">
               <a href="https://www.colorado.gov" rel="home" title="Colorado The Official Web Portal">
-                <img id="logo" src="/demographic_dashboard/img/co_state_web_portal_reverse_white.png" alt="Colorado The Official Web Portal" />
+                <img id="logo" src="img/co_state_web_portal_reverse_white.png" alt="Colorado The Official Web Portal" />
               </a>
 
             </div>
@@ -82,7 +81,7 @@
                         </h1>
                     </div>
 
-                  <a href="https://dola.colorado.gov"><img id="banner" src="/demographic_dashboard/img/dola-banner.png" alt="Colorado Department of Local Affairs" /></a>
+                  <a href="https://dola.colorado.gov"><img id="banner" src="img/dola-banner.png" alt="Colorado Department of Local Affairs" /></a>
 
                     <nav id="top-navigation-wrapper">
                         <ul id="top-navigation-list" class="sm sm-simple">
@@ -170,5 +169,4 @@
 
         </footer>
 
-</body>
-</html>
+
