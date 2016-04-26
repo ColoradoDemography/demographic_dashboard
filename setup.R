@@ -8,8 +8,24 @@ load("county_forecast.rdata")
 load("county_profile.rdata")
 load("county_migbyage.rdata")
 
+mesa_add=data.frame(
+  countyfips=77,
+  year=2015,
+  births=1826,
+  censusBuildingPermits= 0,
+  deaths=1484,
+  groupQuartersPopulation=0,
+  householdPopulation=0,
+  households=0,
+  householdSize=0,
+  naturalIncrease=342,
+  netMigration=125,
+  totalHousingUnits=0,
+  vacancyRate=0,
+  vacantHousingUnits=0
+)
 
-
+county_profile=bind_rows(county_profile, mesa_add)
 
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
