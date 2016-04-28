@@ -5,9 +5,9 @@ library(plotly)
 
 
 load("county_forecast.rdata")
-load("county_profile.rdata")
+# load("county_profile.rdata")
 load("county_migbyage.rdata")
-
+county_profile=read.csv("county_profile.csv")
 
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
