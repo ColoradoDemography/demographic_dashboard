@@ -9,8 +9,6 @@ load("county_profile.rdata")
 load("county_migbyage.rdata")
 
 
-
-
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
 
