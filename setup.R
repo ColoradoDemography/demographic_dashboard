@@ -59,7 +59,7 @@ estimates_p=function(fips){
   
   plot_ly(data, x=year, y=householdPopulation+groupQuartersPopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
-      title=paste("Population Estimates 1980 to", as.character(max(data$year))),
+      title=paste("Population Estimates 1985 to", as.character(max(data$year))),
       xaxis=list(
         title="Year"),
       yaxis=list(
