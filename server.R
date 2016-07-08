@@ -32,7 +32,7 @@ county=reactive({filter(read.csv("county_names.csv"), county==input$county)%>%
   
   output$estimatesData=downloadHandler(
     filename= function(){
-      paste(unique(est_data()$County), paste0("Population Estimates 1980 to ", as.character(max(est_data()$year)), ".csv"))
+      paste(unique(est_data()$County), paste0("Population Estimates 1985 to ", as.character(max(est_data()$year)), ".csv"))
     },
     content= function(file){
       write.csv(est_data(), file, row.names=FALSE)
