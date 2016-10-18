@@ -4,10 +4,10 @@ library(plotly)
 
 
 
-load("county_forecast.rdata")
+# load("county_forecast.rdata")
 # load("county_profile.rdata")
 load("county_migbyage.rdata")
-county_profile=read.csv("county_profile.csv")
+# county_profile=read.csv("county_profile.csv")
 
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
@@ -53,11 +53,9 @@ mig_age_d=function(fips, name){
 ## Generates a Plotly Chart
 estimates_p=function(fips){
   
-  data=county_profile%>%    
-    filter(countyfips==fips)%>%
-    select(countyfips, year, householdPopulation, groupQuartersPopulation)
+  data=codemogAPI::county_profile(fips, 1985:2014, vars="totalpopulation")
   
-  plot_ly(data, x=year, y=householdPopulation+groupQuartersPopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+  plot_ly(data, x=year, y=totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
       title=paste("Population Estimates 1985 to", as.character(max(data$year))),
       xaxis=list(
@@ -72,12 +70,7 @@ estimates_p=function(fips){
 ## Generates the data download
 estimates_d=function(fips, name){
   
-  x=county_profile%>%    
-    filter(countyfips==fips)%>%
-    select(countyfips, year, householdPopulation, groupQuartersPopulation)%>%
-    mutate(TotalPopulation=householdPopulation+groupQuartersPopulation)%>%
-    bind_cols(data.frame(County=rep(name, length(unique(county_profile$year)))))%>%
-    select(County, Year=year, TotalPopulation)
+  x=codemogAPI::county_profile(fips, 1985:2014, vars="totalpopulation")
     
   
   
@@ -92,22 +85,24 @@ estimates_d=function(fips, name){
 projections_p=function(fips, est_year){
   
   
-  CO=county_forecast%>% # Creates data for the state as a whole since that isn't in the data frame.   
-    filter(year>est_year)%>%
+  CO=codemogAPI::county_sya(0, 3000)%>% # Creates data for the state as a whole since that isn't in the data frame.   
+    filter(year>=est_year)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
     group_by(year)%>%
-    summarize(totalPopulation=sum(totalPopulation))%>%
+    summarize(totalpopulation=sum(totalpopulation))%>%
     mutate(countyfips=0)%>%
-    select(countyfips, year, totalPopulation)
+    select(countyfips, year, totalpopulation)
   
-  data=county_forecast%>%
+  data=codemogAPI::county_sya(fips, 3000)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
     bind_rows(CO)%>%
     filter(countyfips==fips, year>=est_year)%>%
     group_by(countyfips, year)%>%
-    summarize(totalPopulation=sum(totalPopulation))%>%
-    select(countyfips, year, totalPopulation)
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(countyfips, year, totalpopulation)
     
   
-  plot_ly(data, x=year, y=totalPopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+  plot_ly(data, x=year, y=totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
       title=paste("Population Projections", as.character(est_year), "to 2050"),
       xaxis=list(
@@ -122,20 +117,20 @@ projections_p=function(fips, est_year){
 ## Generates the data download
 projections_d=function(fips, name, est_year){
   
-  CO=county_forecast%>% # Creates data for the state as a whole since that isn't in the data frame.   
+  CO=codemogAPI::county_sya(0,3000)%>% # Creates data for the state as a whole since that isn't in the data frame.   
     filter(year>est_year)%>%
     group_by(year)%>%
-    summarize(totalPopulation=sum(totalPopulation))%>%
+    summarize(totalpopulation=sum(totalpopulation))%>%
     mutate(countyfips=0)%>%
-    select(countyfips, year, totalPopulation)
+    select(countyfips, year, totalpopulation)
   
-  x=county_forecast%>%   
+  x=codemogAPI::county_sya(fips, 3000)%>%   
     bind_rows(CO)%>%
     filter(countyfips==fips, year>=est_year)%>%
     group_by(countyfips, year)%>%
-    summarize(totalPopulation=sum(totalPopulation))%>%
+    summarize(totalpopulation=sum(totalpopulation))%>%
     bind_cols(data.frame(County=rep(name, length(unique(county_forecast$year)))))%>%
-    select(County, Year=year, TotalPopulation=totalPopulation)
+    select(County, Year=year, TotalPopulation=totalpopulation)
   
   
   
@@ -149,9 +144,12 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=county_profile%>%    
-    filter(countyfips==fips)%>%
-    select(countyfips, year, naturalIncrease, netMigration)
+  data=codemogAPI::county_profile(fips, 1985:2014, vars="births,deaths,netmigration")%>%
+    mutate(births=as.numeric(births),
+           deaths=as.numeric(deaths),
+           netmigration=as.numeric(netmigration),
+      naturalIncrease=births-deaths)%>%
+    select(countyfips, year, naturalIncrease, netMigration=netmigration)
   
   
   plot_ly(data, x=year,y=naturalIncrease+netMigration, line=list(color="rgb(31,74,126)", width=2.5, dash="solid"), name= "Total Population Change")%>%
@@ -174,10 +172,13 @@ components_p(123)
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=county_profile%>%    
-    filter(countyfips==fips)%>%
+  x=codemogAPI::county_profile(fips, 1985:2014, vars="births,deaths,netmigration")%>%
+    mutate(births=as.numeric(births),
+           deaths=as.numeric(deaths),
+           netmigration=as.numeric(netmigration),
+           naturalIncrease=births-deaths)%>%
     bind_cols(data.frame(County=rep(name, length(unique(county_profile$year)))))%>%
-    select(County, year, naturalIncrease, netMigration)
+    select(County, year, naturalIncrease, netMigration=netmigration)
   
   
   
