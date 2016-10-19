@@ -53,7 +53,7 @@ mig_age_d=function(fips, name){
 ## Generates a Plotly Chart
 estimates_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2014, vars="totalpopulation")
+  data=codemogAPI::county_profile(fips, 1985:2015, vars="totalpopulation")
   
   plot_ly(data, x=year, y=totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
@@ -85,17 +85,17 @@ estimates_d=function(fips, name){
 projections_p=function(fips, est_year){
   
   
-  CO=codemogAPI::county_sya(0, 3000)%>% # Creates data for the state as a whole since that isn't in the data frame.   
-    filter(year>=est_year)%>%
-    mutate(totalpopulation=as.numeric(totalpopulation))%>%
-    group_by(year)%>%
-    summarize(totalpopulation=sum(totalpopulation))%>%
-    mutate(countyfips=0)%>%
-    select(countyfips, year, totalpopulation)
+  # CO=codemogAPI::county_sya(0, 3000)%>% # Creates data for the state as a whole since that isn't in the data frame.   
+  #   filter(year>=est_year)%>%
+  #   mutate(totalpopulation=as.numeric(totalpopulation))%>%
+  #   group_by(year)%>%
+  #   summarize(totalpopulation=sum(totalpopulation))%>%
+  #   mutate(countyfips=0)%>%
+  #   select(countyfips, year, totalpopulation)
   
   data=codemogAPI::county_sya(fips, 3000)%>%
     mutate(totalpopulation=as.numeric(totalpopulation))%>%
-    bind_rows(CO)%>%
+    # bind_rows(CO)%>%
     filter(countyfips==fips, year>=est_year)%>%
     group_by(countyfips, year)%>%
     summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
@@ -144,7 +144,7 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2014, vars="births,deaths,netmigration")%>%
+  data=codemogAPI::county_profile(fips, 1985:2015, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
