@@ -21,7 +21,7 @@ mig_age_p=function(fips){
     mutate(countyfips=as.numeric(countyfips))%>%
     filter(countyfips==fips, age<90)
   
-  plot_ly(data, x=age, y=netMigration, line=list(color = "rgb(31,74,126)"))%>%
+  plot_ly(data, x=~age, y=~netMigration, type="scatter", line=list(color = "rgb(31,74,126)"), marker=list(color="rgb(31,74,126)"))%>%
     layout(
       title="Net Migration by Age, 2000 to 2010",
       xaxis=list(
@@ -55,7 +55,7 @@ estimates_p=function(fips){
   
   data=codemogAPI::county_profile(fips, 1985:2015, vars="totalpopulation")
   
-  plot_ly(data, x=year, y=totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+  plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
       title=paste("Population Estimates 1985 to", as.character(max(data$year))),
       xaxis=list(
@@ -102,7 +102,7 @@ projections_p=function(fips, est_year){
     select(countyfips, year, totalpopulation)
     
   
-  plot_ly(data, x=year, y=totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+  plot_ly(data, x=~year, y=~totalpopulation, type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
       title=paste("Population Projections", as.character(est_year), "to 2050"),
       xaxis=list(
@@ -152,9 +152,9 @@ components_p=function(fips){
     select(countyfips, year, naturalIncrease, netMigration=netmigration)
   
   
-  plot_ly(data, x=year,y=naturalIncrease+netMigration, line=list(color="rgb(31,74,126)", width=2.5, dash="solid"), name= "Total Population Change")%>%
-    add_trace(x=year,y=naturalIncrease, line=list(color="rgb(0,149,58)", width=2.5, dash="dot"), name= "Natural Increase")%>%
-    add_trace(x=year,y=netMigration, type= "line", line=list(color = "rgb(92,102,112)", width=2.5, dash="dot"), name="Net Migration")%>%
+  plot_ly(data, x=~year,y=~(naturalIncrease+netMigration), type="scatter", marker=list(color="rgb(31,74,126)"), line=list(color="rgb(31,74,126)", width=2.5, dash="solid"), name= "Total Population Change")%>%
+    add_trace(x=~year,y=~naturalIncrease, type="scatter", marker=list(color="rgb(92,102,112)"), line=list(color="rgb(92,102,112)", width=2.5, dash="dot"), name= "Natural Increase")%>%
+    add_trace(x=~year,y=~netMigration, type="scatter", marker=list(color="rgb(0,149,58)"), line=list(color = "rgb(0,149,58)", width=2.5, dash="dot"), name="Net Migration")%>%
     layout(
       barmode="stacked",
       title=paste("Births, Deaths, and Net Migration 1985 to", as.character(max(data$year))),
