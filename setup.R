@@ -70,7 +70,7 @@ estimates_p=function(fips){
 ## Generates the data download
 estimates_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2014, vars="totalpopulation")
+  x=codemogAPI::county_profile(fips, 1985:2015, vars="totalpopulation")
     
   
   
@@ -172,7 +172,7 @@ components_p(123)
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2014, vars="births,deaths,netmigration")%>%
+  x=codemogAPI::county_profile(fips, 1985:2015, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
