@@ -167,7 +167,7 @@ components_p=function(fips){
   
 }
 
-components_p(123)
+
 
 ## Generates the data download
 components_d=function(fips, name){
