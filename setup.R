@@ -179,8 +179,8 @@ components_d=function(fips, name){
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
            naturalIncrease=births-deaths)%>%
-    bind_cols(data.frame(County=rep(name, length(unique(x$year)))))%>%
-    select(County, year, births, deaths, naturalIncrease, netMigration=netmigration)
+    ##bind_cols(data.frame(County=rep(name, length(unique(x$year)))))%>%
+    select(County=county, year, births, deaths, naturalIncrease, netMigration=netmigration)
   
   
   
