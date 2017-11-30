@@ -118,20 +118,18 @@ projections_p=function(fips, est_year){
 projections_d=function(fips, name, est_year){
   
   CO=codemogAPI::county_sya(0,3000)%>% # Creates data for the state as a whole since that isn't in the data frame.   
-    mutate(totalpopulation=as.numeric(totalpopulation))%>%  
-    filter(year>=est_year)%>%
+    filter(year>est_year)%>%
     group_by(year)%>%
     summarize(totalpopulation=sum(totalpopulation))%>%
     mutate(countyfips=0)%>%
     select(countyfips, year, totalpopulation)
   
   x=codemogAPI::county_sya(fips, 3000)%>%   
-    mutate(totalpopulation=as.numeric(totalpopulation))%>%
     bind_rows(CO)%>%
     filter(countyfips==fips, year>=est_year)%>%
     group_by(countyfips, year)%>%
-    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
-    bind_cols(data.frame(County=rep(name, length(unique(CO$year)))))%>%
+    summarize(totalpopulation=sum(totalpopulation))%>%
+    bind_cols(data.frame(County=rep(name, length(unique(county_forecast$year)))))%>%
     select(County, Year=year, TotalPopulation=totalpopulation)
   
   
@@ -179,8 +177,8 @@ components_d=function(fips, name){
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
            naturalIncrease=births-deaths)%>%
-    ##bind_cols(data.frame(County=rep(name, length(unique(x$year)))))%>%
-    select(County=county, year, births, deaths, naturalIncrease, netMigration=netmigration)
+    bind_cols(data.frame(County=rep(name, length(unique(county_profile$year)))))%>%
+    select(County, year, naturalIncrease, netMigration=netmigration)
   
   
   
