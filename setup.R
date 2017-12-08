@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyr)
 library(plotly)
+devtools::install_github("ColoradoDemography/codemogAPI")
 
 
 
