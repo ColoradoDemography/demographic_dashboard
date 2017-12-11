@@ -47,7 +47,7 @@ county=reactive({filter(read.csv("county_names.csv"), county==input$county)%>%
   
   output$projectionsData=downloadHandler(
     filename= function(){
-      paste(unique(proj_data()$County), paste0("Population Projections 2010 to 2050.csv"), sep="_")
+      paste(unique(proj_data()$County), paste0("Population Projections 2010 to 2050.csv"))
     },
     content= function(file){
       write.csv(proj_data(), file, row.names=FALSE)
@@ -62,7 +62,7 @@ county=reactive({filter(read.csv("county_names.csv"), county==input$county)%>%
   
   output$componentsData=downloadHandler(
     filename= function(){
-      paste(unique(comp_data()$County), paste0("Births, Deaths, and Net Migration 1985 to ", max(comp_data()$year), ".csv"), sep="_")
+      paste(unique(comp_data()$County), paste0("Births, Deaths, and Net Migration 1985 to ", max(comp_data()$year), ".csv"))
     },
     content= function(file){
       write.csv(comp_data(), file, row.names=FALSE)
