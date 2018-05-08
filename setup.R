@@ -22,7 +22,7 @@ mig_age_p=function(fips){
     mutate(countyfips=as.numeric(countyfips))%>%
     filter(countyfips==fips, age<90)
   
-  plot_ly(data, x=~age, y=~netMigration, type="scatter", line=list(color = "rgb(31,74,126)"), marker=list(color="rgb(31,74,126)"))%>%
+  plot_ly(data, x=~age, y=~netMigration, type="bar", line=list(color = "rgb(31,74,126)"), marker=list(color="rgb(31,74,126)"))%>%
     layout(
       title="Net Migration by Age, 2000 to 2010",
       xaxis=list(
