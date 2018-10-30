@@ -54,7 +54,7 @@ mig_age_d=function(fips, name){
 ## Generates a Plotly Chart
 estimates_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2016, vars="totalpopulation")
+  data=codemogAPI::county_profile(fips, 1985:2017, vars="totalpopulation")
   
   plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
@@ -71,7 +71,7 @@ estimates_p=function(fips){
 ## Generates the data download
 estimates_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2016, vars="totalpopulation")
+  x=codemogAPI::county_profile(fips, 1985:2017, vars="totalpopulation")
     
   
   
@@ -147,7 +147,7 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2016, vars="births,deaths,netmigration")%>%
+  data=codemogAPI::county_profile(fips, 1985:2017, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -175,7 +175,7 @@ components_p=function(fips){
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2016, vars="births,deaths,netmigration")%>%
+  x=codemogAPI::county_profile(fips, 1985:2017, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
