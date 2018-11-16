@@ -14,7 +14,8 @@ function(req) {
                projections_plot=plotlyOutput("projections"),
                projections_dl=downloadButton('projectionsData', 'Download Data (CSV)'),
                components_plot=plotlyOutput("components"),
-               components_dl=downloadButton('componentsData', 'Download Data (CSV)')
+               components_dl=downloadButton('componentsData', 'Download Data (CSV)'),
+               projections_age_plot=plotlyOutput("projections_age")
                )
 }
 

@@ -188,6 +188,114 @@ components_d=function(fips, name){
   return(x)
 }
 
+#### Population Projections change by Age Group Graph ####
+
+projections_ageGroup=function(fips){
+  year1<-2018
+  year2<-2025
+  x017y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=0, age<=17)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x017y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=0, age<=17)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg017<-(((x017y2/x017y1)-1)*100)
+  x1624y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=16, age<=24)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x1624y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=16, age<=24)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg1624<-(((x1624y2/x1624y1)-1)*100)
+  x2554y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=25, age<=54)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x2554y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=25, age<=54)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg2554<-(((x2554y2/x2554y1)-1)*100)
+  x5564y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=55, age<=64)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x5564y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=55, age<=64)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg5564<-(((x5564y2/x5564y1)-1)*100)
+  x6574y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=65, age<=74)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x6574y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=65, age<=74)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg6574<-(((x6574y2/x6574y1)-1)*100)
+  x85y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=85, age<=100)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x85y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=85, age<=100)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg85<-(((x85y2/x85y1)-1)*100)
+  xtotaly1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  xtotaly2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chgtotal<-(((xtotaly2/xtotaly1)-1)*100)%>%
+    select(totalpopulation)
+  x<-c(Chgtotal[1,],Chg85[1,],Chg6574[1,],Chg5564[1,],Chg2554[1,],Chg1624[1,],Chg017[1,])
+  y<-c('Total Population', 'Long-term Care (85+)','Retirement Age (65-74)','Older Age Workers (55-64)',
+       'Prime Age Workers (25-54)','Entering the Labor Force (16-24)','Youth Population (0-17)')
+  data <- data.frame(y,x)
+  yform <- list(categoryorder = "array",
+                categoryarray = c('Long-term Care (85+)',
+                                  'Retirement Age (65-74)',
+                                  'Older Age Workers (55-64)',
+                                  'Prime Age Workers (25-54)',
+                                  'Entering the Labor Force (16-24)',
+                                  'Youth Population (0-17)',
+                                  'Total Population'))
+  plot_ly(data,x=~x,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)"))%>%
+    layout(yaxis=yform,
+           title=paste("Projected Population Change by Age Group, 2018 to 2025"),
+           xaxis=list(
+             title="Percent Change"),
+           margin=list(t=60))%>%
+    add_annotations(xref = 'x', yref = 'y',
+                    x = x,  y = y,
+                    text = paste(round(x, 0),'%          '),
+                    font = list(family = 'Arial', size = 14, color = 'rgb(248, 248, 255)'),
+                    showarrow = FALSE)
+  
+}
 
 
 

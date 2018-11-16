@@ -69,4 +69,7 @@ county=reactive({filter(read.csv("county_names.csv"), county==input$county)%>%
     }
     
   )
+  
+##### Percent Change By Age Group #####
+  output$projections_age=renderPlotly({projections_ageGroup(county())})
 }
