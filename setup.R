@@ -271,18 +271,23 @@ projections_ageGroup=function(fips){
     select(totalpopulation)
   Chgtotal<-(((xtotaly2/xtotaly1)-1)*100)%>%
     select(totalpopulation)
-  x<-c(Chgtotal[1,],Chg85[1,],Chg6574[1,],Chg5564[1,],Chg2554[1,],Chg1624[1,],Chg017[1,])
-  y<-c('Total Population', 'Long-term Care (85+)','Retirement Age (65-74)','Older Age Workers (55-64)',
-       'Prime Age Workers (25-54)','Entering the Labor Force (16-24)','Youth Population (0-17)')
+#  x<-c(as.integer(Chgtotal),as.integer(Chg85),as.integer(Chg6574),as.integer(Chg5564),as.integer(Chg2554),
+#       as.integer(Chg1624),as.integer(Chg017))
+  x<-c(round(Chgtotal[,1],digits=1),round(Chg85[,1], digits=1),round(Chg6574[,1],digits=1),round(Chg5564[,1],digits=1),
+       round(Chg2554[,1],digits=1),round(Chg1624[,1],digits=1),round(Chg017[,1],digits=1))
+  
+  y<-c('All ages', '85 & over','65 to 74','55 to 64',
+       '25 to 54','16 to 24','0 to 17')
   data <- data.frame(y,x)
-  yform <- list(categoryorder = "array",
-                categoryarray = c('Long-term Care (85+)',
-                                  'Retirement Age (65-74)',
-                                  'Older Age Workers (55-64)',
-                                  'Prime Age Workers (25-54)',
-                                  'Entering the Labor Force (16-24)',
-                                  'Youth Population (0-17)',
-                                  'Total Population'))
+  yform <- list(title="Age Group",
+                categoryorder = "array",
+                categoryarray = c('85 & over',
+                                  '65 to 74',
+                                  '55 to 64',
+                                  '25 to 54',
+                                  '16 to 24',
+                                  '0 to 17',
+                                  'All ages'))
   plot_ly(data,x=~x,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)"))%>%
     layout(yaxis=yform,
            title=paste("Projected Population Change by Age Group, 2018 to 2025"),
