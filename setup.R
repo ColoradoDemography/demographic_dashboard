@@ -279,8 +279,7 @@ projections_ageGroup=function(fips){
   y<-c('All ages', '85 & over','65 to 74','55 to 64',
        '25 to 54','16 to 24','0 to 17')
   data <- data.frame(y,x)
-  yform <- list(title="Age Group",
-                categoryorder = "array",
+  yform <- list(categoryorder = "array",
                 categoryarray = c('85 & over',
                                   '65 to 74',
                                   '55 to 64',
