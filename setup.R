@@ -222,7 +222,7 @@ projections_ageGroup=function(fips){
   
   # Adjusting x values
   data$x <- round(data$x,0)
-  data$xw <- ifelse(data$x >= -4 & data$x <= 0, data$x - 1,
+  data$xlen <- ifelse(data$x >= -4 & data$x <= 0, data$x - 1,
             ifelse(data$x > 0 & data$x <= 4, data$x + 1,data$x))
   data$xpos <- ifelse(data$x <= 0, data$x + 1.2,data$x - 1.2)  # Adjustment for Chart annotations
  
@@ -240,7 +240,7 @@ projections_ageGroup=function(fips){
                                   '18 to 24',
                                   '0 to 17',
                                   'All Ages'))
- plot <-  plot_ly(data,x=~xw,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)")) %>%
+ plot <-  plot_ly(data,x=~xlen,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)")) %>%
     layout(yaxis=yform,
            title=paste0("Projected Population Change by Age Group, ",year1," to ",year2),
            xaxis=list(
