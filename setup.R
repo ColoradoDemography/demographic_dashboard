@@ -197,7 +197,11 @@ projections_ageGroup=function(fips){
   series1 <- codemogAPI::county_sya(fips,year1)
   series2 <- codemogAPI::county_sya(fips,year2)
   agedata <- inner_join(series1, series2, by="age")
-  agedata <- agedata[,c(3,7,14)]
+  if(fips == 0) { # Adjustment for State 
+    agedata <- agedata[,c(2,5,11)]
+    } else {
+    agedata <- agedata[,c(3,7,14)]
+    }
   agedata$y <- ifelse(agedata$age <= 17,1,   #Le 17
                       ifelse(agedata$age <= 24, 2,  #18-24
                       ifelse(agedata$age <=  54, 3, #25-54
