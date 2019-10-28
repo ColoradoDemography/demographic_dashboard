@@ -54,7 +54,7 @@ mig_age_d=function(fips, name){
 ## Generates a Plotly Chart
 estimates_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2017, vars="totalpopulation")
+  data=codemogAPI::county_profile(fips, 1985:2018, vars="totalpopulation")
   
   plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
@@ -71,7 +71,7 @@ estimates_p=function(fips){
 ## Generates the data download
 estimates_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2017, vars="totalpopulation")
+  x=codemogAPI::county_profile(fips, 1985:2018, vars="totalpopulation")
     
   
   
@@ -147,7 +147,7 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2017, vars="births,deaths,netmigration")%>%
+  data=codemogAPI::county_profile(fips, 1985:2018, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -175,7 +175,7 @@ components_p=function(fips){
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2017, vars="births,deaths,netmigration")%>%
+  x=codemogAPI::county_profile(fips, 1985:2018, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -248,6 +248,17 @@ projections_ageGroup=function(fips){
     summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
     select(totalpopulation)
   Chg6574<-(((x6574y2/x6574y1)-1)*100)
+  x7584y1=codemogAPI::county_sya(fips,year1)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year1,age >=75, age<=84)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  x7584y2=codemogAPI::county_sya(fips,year2)%>%
+    mutate(totalpopulation=as.numeric(totalpopulation))%>%
+    filter(countyfips==fips, year==year2,age >=75, age<=84)%>%
+    summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
+    select(totalpopulation)
+  Chg7584<-(((x7584y2/x7584y1)-1)*100)
   x85y1=codemogAPI::county_sya(fips,year1)%>%
     mutate(totalpopulation=as.numeric(totalpopulation))%>%
     filter(countyfips==fips, year==year1,age >=85, age<=100)%>%
@@ -273,14 +284,15 @@ projections_ageGroup=function(fips){
     select(totalpopulation)
 #  x<-c(as.integer(Chgtotal),as.integer(Chg85),as.integer(Chg6574),as.integer(Chg5564),as.integer(Chg2554),
 #       as.integer(Chg1624),as.integer(Chg017))
-  x<-c(round(Chgtotal[,1],digits=1),round(Chg85[,1], digits=1),round(Chg6574[,1],digits=1),round(Chg5564[,1],digits=1),
-       round(Chg2554[,1],digits=1),round(Chg1624[,1],digits=1),round(Chg017[,1],digits=1))
+  x<-c(round(Chgtotal[,1],digits=1),round(Chg85[,1], digits=1),round(Chg7584[,1],digits=1),round(Chg6574[,1],digits=1),
+       round(Chg5564[,1],digits=1),round(Chg2554[,1],digits=1),round(Chg1624[,1],digits=1),round(Chg017[,1],digits=1))
   
-  y<-c('All ages', '85 & over','65 to 74','55 to 64',
+  y<-c('All ages', '85 & over','75 to 84','65 to 74','55 to 64',
        '25 to 54','16 to 24','0 to 17')
   data <- data.frame(y,x)
   yform <- list(categoryorder = "array",
                 categoryarray = c('85 & over',
+                                  '75 to 84',
                                   '65 to 74',
                                   '55 to 64',
                                   '25 to 54',
