@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5{
 body{
     margin:0;
     padding:0;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     color:#666666;
     line-height:24px;
 }
@@ -123,7 +123,7 @@ button {
 }
 
 #top-bar-wrapper {
-    background-color:#373f51;
+    background-color:#f0f0f0;
     clear: both!important;
     overflow: auto;
 }
