@@ -358,7 +358,7 @@ projections_ageGroup=function(fips){
                                   'All ages'))
   plot_ly(data,x=~x,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)"))%>%
     layout(yaxis=yform,
-           title=paste("Projected Population Change by Age Group, 2018 to 2025"),
+           title=paste("Projected Population Change by Age Group, 2020 to 2025"),
            xaxis=list(
              title="Percent Change"),
            margin=list(t=60))%>%
