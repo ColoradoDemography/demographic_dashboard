@@ -3,15 +3,15 @@ library(tidyr)
 library(plotly)
 
 #commands to create county_forecast.rdata and county_profile.rdata after CSVs are imported
-# county_forecast <- read.csv("county_sya.csv", sep = ';')
+county_forecast <- read.csv("county_sya.csv", sep = ';')
 # save(county_forecast, file = "county_forecast.rdata")
-# county_profile <- read.csv("county_profiles.csv", sep = ';')
+county_profile <- read.csv("county_profile.csv", sep = ';')
 # save(county_profile, file = "county_profile.rdata")
 
 
 #load data
-load("county_forecast.rdata")
-load("county_profile.rdata")
+#load("county_forecast.rdata")
+#load("county_profile.rdata")
 load("county_migbyage.rdata")
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
