@@ -4,9 +4,9 @@ library(plotly)
 
 #commands to create county_forecast.rdata and county_profile.rdata after CSVs are imported
 county_forecast <- read.csv("county_sya.csv", sep = ';')
-#save(county_forecast, file = "county_forecast.rdata")
+# save(county_forecast, file = "county_forecast.rdata")
 county_profile <- read.csv("county_profile.csv", sep = ';')
-#save(county_profile, file = "county_profile.rdata")
+# save(county_profile, file = "county_profile.rdata")
 
 
 #load data
