@@ -244,7 +244,7 @@ projections_ageGroup=function(fips){
   year2<-2025
   CO=county_forecast%>% # Creates data for the state as a whole since that isn't in the data frame.   
     #mutate(totalpopulation=as.numeric(totalpopulation))%>%
-    filter(year>=est_year)%>%
+    #filter(year>=est_year)%>%
     group_by(year,age)%>%
     summarize(totalpopulation=sum(totalpopulation))%>%
     mutate(countyfips=0)%>%
