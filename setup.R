@@ -129,7 +129,7 @@ projections_d=function(fips, name, est_year){
     filter(countyfips==fips, year>=est_year)%>%
     group_by(countyfips, year)%>%
     summarize(totalpopulation=sum(as.numeric(as.character(totalpopulation))))%>%
-    bind_cols(data.frame(County=rep(name, length(unique(x$year)))))%>%
+    bind_cols(data.frame(County=rep(name, length(data.frame))))%>%
     select(County, Year=year, TotalPopulation=totalpopulation)
   
   
