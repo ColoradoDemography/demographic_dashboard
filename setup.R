@@ -10,6 +10,36 @@ load("county_migbyage.rdata")
 county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
   select(county)
 
+#### Population Estimates Graph and Data ####
+
+
+## Generates a Plotly Chart
+estimates_p=function(fips){
+  
+  data=codemogAPI::county_profile(fips, 1985:2019, vars="totalpopulation")
+  
+  plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
+    layout(
+      title=paste("Population Estimates 1985 to", as.character(max(data$year))),
+      xaxis=list(
+        title="Year"),
+      yaxis=list(
+        title="Total Population"),
+      margin=list(t=60)
+    )
+  
+}
+
+## Generates the data download
+estimates_d=function(fips, name){
+  
+  x=codemogAPI::county_profile(fips, 1985:2019, vars="totalpopulation")
+    
+  
+  
+  return(x)
+}
+
 #### Net Migration by Age Graph and Data #####
 
 ## Generates a Plotly Chart
@@ -28,53 +58,21 @@ mig_age_p=function(fips){
         title=" Net Migration"),
       margin=list(t=60)
     )
-
+  
 }
 
 ## Generates the data download
 mig_age_d=function(fips, name){
-
+  
   x=county_migbyage%>%
     mutate(countyfips=as.numeric(countyfips))%>%
     filter(countyfips==fips, age<90)%>%
     bind_cols(data.frame(County=rep(name, 90)))%>%
     select(County, Age=age, NetMigration=netMigration)
-    
-  
-  return(x)
-}
-
-
-#### Population Estimates Graph and Data ####
-
-
-## Generates a Plotly Chart
-estimates_p=function(fips){
-  
-  data=codemogAPI::county_profile(fips, 1985:2018, vars="totalpopulation")
-  
-  plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
-    layout(
-      title=paste("Population Estimates 1985 to", as.character(max(data$year))),
-      xaxis=list(
-        title="Year"),
-      yaxis=list(
-        title="Total Population"),
-      margin=list(t=60)
-    )
-  
-}
-
-## Generates the data download
-estimates_d=function(fips, name){
-  
-  x=codemogAPI::county_profile(fips, 1985:2018, vars="totalpopulation")
-    
   
   
   return(x)
 }
-
 
 #### Population Projections Graph and Data ####
 
@@ -144,7 +142,7 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2018, vars="births,deaths,netmigration")%>%
+  data=codemogAPI::county_profile(fips, 1985:2019, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -172,7 +170,7 @@ components_p=function(fips){
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2018, vars="births,deaths,netmigration")%>%
+  x=codemogAPI::county_profile(fips, 1985:2019, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -188,7 +186,7 @@ components_d=function(fips, name){
 #### Population Projections change by Age Group Graph ####
 
 projections_ageGroup=function(fips){
-  year1<-2018
+  year1<-2020
   year2<-2025
   x017y1=codemogAPI::county_sya(fips,year1)%>%
     mutate(totalpopulation=as.numeric(totalpopulation))%>%
@@ -298,7 +296,7 @@ projections_ageGroup=function(fips){
                                   'All ages'))
   plot_ly(data,x=~x,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)"))%>%
     layout(yaxis=yform,
-           title=paste("Projected Population Change by Age Group, 2018 to 2025"),
+           title=paste("Projected Population Change by Age Group, 2020 to 2025"),
            xaxis=list(
              title="Percent Change"),
            margin=list(t=60))%>%
