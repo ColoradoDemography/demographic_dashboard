@@ -150,7 +150,7 @@ components_p=function(fips){
     select(countyfips, year, births, deaths, netMigration=netmigration)
   
   
-  plot_ly(data, x=~year,y=~(naturalIncrease+netMigration), type="scatter", marker=list(color="rgb(31,74,126)"), line=list(color="rgb(31,74,126)", width=2.5, dash="solid"), name= "Total Population Change")%>%
+  plot_ly(data, x=~year,y=~(births-deaths+netMigration), type="scatter", marker=list(color="rgb(31,74,126)"), line=list(color="rgb(31,74,126)", width=2.5, dash="solid"), name= "Total Population Change")%>%
     add_trace(x=~year,y=~births, type="scatter", marker=list(color="rgb(92,102,112)"), line=list(color="rgb(92,102,112)", width=2.5, dash="dot"), name= "Births")%>%
     add_trace(x=~year,y=~(deaths*-1), type="scatter", marker=list(color="rgb(123,50,148)"), line=list(color="rgb(123,50,148)", width=2.5, dash="dot"), name= "Deaths")%>%
     add_trace(x=~year,y=~netMigration, type="scatter", marker=list(color="rgb(0,149,58)"), line=list(color = "rgb(0,149,58)", width=2.5, dash="dot"), name="Net Migration")%>%
