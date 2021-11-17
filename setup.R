@@ -187,7 +187,7 @@ components_d=function(fips, name){
 
 projections_ageGroup=function(fips){
   year1<-2020
-  year2<-2025
+  year2<-2030
   x017y1=codemogAPI::county_sya(fips,year1)%>%
     mutate(totalpopulation=as.numeric(totalpopulation))%>%
     filter(countyfips==fips, year==year1,age >=0, age<=17)%>%
@@ -296,7 +296,7 @@ projections_ageGroup=function(fips){
                                   'All ages'))
   plot_ly(data,x=~x,y=~y, type = 'bar', orientation = 'h',marker=list(color = "rgb(31,74,126)"))%>%
     layout(yaxis=yform,
-           title=paste("Projected Population Change by Age Group, 2020 to 2025"),
+           title=paste("Projected Population Change by Age Group, 2020 to 2030"),
            xaxis=list(
              title="Percent Change"),
            margin=list(t=60))%>%
