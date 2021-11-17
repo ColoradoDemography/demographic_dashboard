@@ -16,7 +16,7 @@ county_choices=read.csv("county_names.csv", stringsAsFactors = FALSE)%>%
 ## Generates a Plotly Chart
 estimates_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2019, vars="totalpopulation")
+  data=codemogAPI::county_profile(fips, 1985:2020, vars="totalpopulation")
   
   plot_ly(data, x= ~year, y= ~as.numeric(totalpopulation), type= "bar", marker=list(color = "rgb(31,74,126)"))%>%
     layout(
@@ -33,7 +33,7 @@ estimates_p=function(fips){
 ## Generates the data download
 estimates_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2019, vars="totalpopulation")
+  x=codemogAPI::county_profile(fips, 1985:2020, vars="totalpopulation")
     
   
   
@@ -142,7 +142,7 @@ projections_d=function(fips, name, est_year){
 ## Generates a Plotly Chart
 components_p=function(fips){
   
-  data=codemogAPI::county_profile(fips, 1985:2019, vars="births,deaths,netmigration")%>%
+  data=codemogAPI::county_profile(fips, 1985:2020, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
@@ -170,7 +170,7 @@ components_p=function(fips){
 ## Generates the data download
 components_d=function(fips, name){
   
-  x=codemogAPI::county_profile(fips, 1985:2019, vars="births,deaths,netmigration")%>%
+  x=codemogAPI::county_profile(fips, 1985:2020, vars="births,deaths,netmigration")%>%
     mutate(births=as.numeric(births),
            deaths=as.numeric(deaths),
            netmigration=as.numeric(netmigration),
