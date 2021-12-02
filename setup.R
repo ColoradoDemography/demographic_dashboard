@@ -158,10 +158,11 @@ components_p=function(fips){
       barmode="stacked",
       title=paste("Births, Deaths, and Net Migration 1985 to", as.character(max(data$year))),
       xaxis=list(
-        title="Year"),
+        title=""),
       yaxis=list(
         title="Population Change"),
-      margin=list(t=60)
+      margin=list(t=60),
+      legend = list(orientation = 'h')
     )
   
 }
